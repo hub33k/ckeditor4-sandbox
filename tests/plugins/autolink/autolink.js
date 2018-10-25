@@ -1,5 +1,5 @@
 /* bender-tags: editor */
-/* bender-ckeditor-plugins: autolink,clipboard,link */
+/* bender-ckeditor-plugins: autolink,clipboard */
 /* bender-include: ../clipboard/_helpers/pasting.js */
 /* global assertPasteEvent */
 
@@ -285,6 +285,18 @@
 			assertPasteEvent( this.editors.encodedCustom, { dataValue: pastedText, type: 'text' }, function( data ) {
 				assert.areEqual( 'html', data.type );
 				assert.areEqual( expected, bender.tools.compatHtml( data.dataValue ) );
+			} );
+		},
+
+		// (#1824)
+		'test link plugin is loaded': function() {
+			bender.editorBot.create( {
+				name: 'editor_link_loaded',
+				config: {
+					plugins: 'autolink'
+				}
+			}, function( bot ) {
+				assert.isNotUndefined( bot.editor.plugins.link );
 			} );
 		}
 	} );
